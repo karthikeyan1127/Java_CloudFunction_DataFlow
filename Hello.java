@@ -25,13 +25,13 @@ public class Example implements HttpFunction {
                     Logger Log = LoggerFactory.getLogger(this.getClass());
         BufferedWriter writer = response.getWriter();
         try {
-            Log.info("!");
+            
             writer.write("1");
             HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
             JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
             GoogleCredential credential = GoogleCredential.getApplicationDefault(httpTransport, jsonFactory);
             writer.write("2");
-            Log.info("!");
+           
             // The createScopedRequired method returns true when running on GAE or a local developer
             // machine. In that case, the desired scopes must be passed in manually. When the code is
             // running in GCE, GKE or a Managed VM, the scopes are pulled from the GCE metadata server.
@@ -39,7 +39,6 @@ public class Example implements HttpFunction {
             if (credential.createScopedRequired()) {
                 credential = credential.createScoped(Collections.singletonList("https://www.googleapis.com/auth/cloud-platform"));
             }
-            Log.info("qweweeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             writer.write("3");
             Dataflow dataflowService = new Dataflow.Builder(httpTransport, jsonFactory, credential)
                     .setApplicationName("Google Cloud Platform Sample")
@@ -61,12 +60,12 @@ public class Example implements HttpFunction {
             params.put("output", "gs://karthiksfirstbucket/count1");
             launchTemplateParameters.setParameters(params);
             writer.write("4");
-            Log.info("5646564564645");
+           
             Dataflow.Projects.Templates.Launch launch = dataflowService.projects().templates().launch(projectId, launchTemplateParameters);
-            Log.info("56next");
+            
             launch.setGcsPath("gs://dataflow-templates-us-central1/latest/Word_Count");
             launch.execute();
-            Log.info("&&&&&&&&&&&&&&&&");
+            
         }catch(Exception e){
             writer.write(e.toString());
         }
